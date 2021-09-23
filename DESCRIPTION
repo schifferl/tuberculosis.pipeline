@@ -1,0 +1,54 @@
+Package: tuberculosis.pipeline
+Title: Data Processing Pipeline for the tuberculosis Package
+Description:
+    This is the data processing pipeline for the tuberculosis R/Bioconductor
+    package; it should be run inside the tuberculosis.pipeline Docker container.
+    The Docker container is available through Docker Hub, and the
+    tuberculosis.pipeline GitHub repository has a branch, docker, which contains
+    the related Dockerfile.
+Authors@R:
+    person(given = "Lucas", family = "Schiffer", role = c("aut", "cre"),
+           email = "schiffer.lucas@gmail.com",
+           comment = c(ORCID = "0000-0003-3628-0326"))
+Version: 1.0.0
+License: Artistic-2.0
+Depends:
+    R (>= 4.1.0)
+Imports:
+    affy,
+    dplyr,
+    furrr,
+    googledrive,
+    googlesheets4,
+    limma,
+    magrittr,
+    oligo,
+    purrr,
+    readr,
+    rentrez,
+    rlang,
+    snakecase,
+    stringr,
+    tibble,
+    tidyr,
+    tidyselect,
+    utils,
+    xml2
+Suggests:
+    httr,
+    illuminaio,
+    jsonlite,
+    makecdfenv,
+    pd.clariom.d.human,
+    pd.hta.2.0,
+    pd.huex.1.0.st.v2,
+    pd.hugene.1.0.st.v1,
+    pd.hugene.2.1.st,
+    usethis
+URL: https://github.com/schifferl/tuberculosis.pipeline
+BugReports: https://github.com/schifferl/tuberculosis.pipeline/issues
+Encoding: UTF-8
+LazyData: true
+LazyDataCompression: bzip2
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

@@ -1,0 +1,40 @@
+#!/bin/bash -l
+
+#$ -e /dev/null
+#$ -o /dev/null
+#$ -P tuberculosis
+#$ -pe omp 16
+#$ -t 1-51
+
+module load sratoolkit/2.10.5
+module load nextflow/19.10.0
+
+INDEX=$(($SGE_TASK_ID-1))
+
+INPUT=(SRR6871002 SRR6871003 SRR6871004 SRR6871005 SRR6871006 SRR6871007 SRR6871008 SRR6871009 SRR6871010 SRR6871011 SRR6871012 SRR6871013 SRR6871014 SRR6871015 SRR6871016 SRR6871017 SRR6871018 SRR6871019 SRR6871020 SRR6871021 SRR6871022 SRR6871023 SRR6871024 SRR6871025 SRR6871026 SRR6871027 SRR6871028 SRR6871029 SRR6871030 SRR6871031 SRR6871032 SRR6871033 SRR6871034 SRR6871035 SRR6871036 SRR6871037 SRR6871038 SRR6871039 SRR6871040 SRR6871041 SRR6871042 SRR6871043 SRR6871044 SRR6871045 SRR6871046 SRR6871047 SRR6871048 SRR6871049 SRR6871050 SRR6871051 SRR6871052)
+SRRID=${INPUT[$INDEX]}
+
+SERIES_LIBRARY_LAYOUT=(SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE PAIRED PAIRED PAIRED PAIRED PAIRED PAIRED PAIRED PAIRED PAIRED PAIRED PAIRED PAIRED SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE SINGLE)
+SAMPLE_LIBRARY_LAYOUT=${SERIES_LIBRARY_LAYOUT[$INDEX]}
+
+if [[ -e "$SRRID.tsv.gz" ]]; then
+  exit
+fi
+
+prefetch --output-directory "/scratch/$USER" $SRRID | grep "\S" &> "$SRRID.log"
+fasterq-dump --outdir "/scratch/$USER/$SRRID" --temp "/scratch/$USER/$SRRID" --threads 16 "/scratch/$USER/$SRRID" &>> "$SRRID.log"
+
+if [[ $SAMPLE_LIBRARY_LAYOUT == "PAIRED" ]]; then
+  nextflow run -profile singularity -revision 1.4.2 -work-dir "/scratch/$USER/$SRRID/work" nf-core/rnaseq --reads "/scratch/$USER/$SRRID/*{1,2}.fastq" --genome GRCh38 --skipBiotypeQC --outdir "/scratch/$USER/$SRRID/results" &>> "$SRRID.log"
+fi
+
+if [[ $SAMPLE_LIBRARY_LAYOUT == "SINGLE" ]]; then
+  nextflow run -profile singularity -revision 1.4.2 -work-dir "/scratch/$USER/$SRRID/work" nf-core/rnaseq --reads "/scratch/$USER/$SRRID/*.fastq" --singleEnd --genome GRCh38 --skipBiotypeQC --outdir "/scratch/$USER/$SRRID/results" &>> "$SRRID.log"
+fi
+
+if [[ -n $(grep -l "Succeeded   : 13" "$SRRID.log") ]]; then
+  gzip --stdout "/scratch/$USER/$SRRID/results/featureCounts/merged_gene_counts.txt" > "$SRRID.tsv.gz"
+fi
+
+rm -rf "/scratch/$USER/$SRRID"
+

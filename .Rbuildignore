@@ -1,0 +1,9 @@
+^LICENSE$
+^README\.Rmd$
+^tuberculosis\.pipeline\.Rproj$
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$
+^NOTES\.md$
+^data-raw$
+^\.github$
+^\.Rproj\.user$
