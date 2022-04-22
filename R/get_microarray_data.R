@@ -512,7 +512,7 @@ get_microarray_data <- function(geo_metadata_df, geo_series_accession) {
         }
 
         bgx_file <-
-            base::system.file("extdata/HumanHT-12_V4_0_R2_15002873_B.bgx", package = "tuberculosis")
+            base::system.file("extdata/HumanHT-12_V4_0_R2_15002873_B.bgx", package = "tuberculosis.pipeline")
 
         series_directory <-
             stringr::str_c(series_directory, "/")

@@ -1,5 +1,12 @@
 # Notes
 
+## GSE181143-GPL20795
+* Sample Number manually changed from 560 to 0 because GEO sample identifiers could not be translated to SRA identifiers.
+  - Some sample records have not yet been released; inclusion will be attempted again in the future.
+
+## GSE156422-GPL24676
+* Sample Number manually changed from 78 to 0 because GEO sample identifiers could not be translated to SRA identifiers.
+
 ## GSE165709-GPL20301
 * Sample Number manually changed from 100 to 0 because `GSE165709-GPL20301` is a duplicate of `GSE165708-GPL20301`.
 
