@@ -8,7 +8,7 @@
 #' @importFrom purrr keep
 #' @importFrom purrr map
 #' @importFrom tibble column_to_rownames
-write_expression_matrix <- function(download_dir, path = "~/aws-upload-data") {
+write_expression_matrix <- function(download_dir, path = "~/abs-upload-data") {
     date_prefix <-
         base::basename(download_dir)
 

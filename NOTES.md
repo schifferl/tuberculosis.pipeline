@@ -1,8 +1,14 @@
 # Notes
 
+## GSE196816-GPL31944
+* Sample Number manually changed from 15 to 14 because dupRadar exceeded the 4h running time limit for some samples.
+  - Sample SRR18042665 was manually removed because dupRadar exceeded the 4h running time limit.
+
+## GSE196192-GPL11154
+* Sample Number manually changed from 31 to 0 because GEO sample identifiers could not be translated to SRA identifiers.
+
 ## GSE181143-GPL20795
 * Sample Number manually changed from 560 to 0 because GEO sample identifiers could not be translated to SRA identifiers.
-  - Some sample records have not yet been released; inclusion will be attempted again in the future.
 
 ## GSE156422-GPL24676
 * Sample Number manually changed from 78 to 0 because GEO sample identifiers could not be translated to SRA identifiers.

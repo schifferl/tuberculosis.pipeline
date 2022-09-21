@@ -15,7 +15,7 @@ write_metadata_csv_file <- function(upload_dir, path = "~/eh-metadata-csv") {
         stringr::str_remove(Title, "^([^A-Z]+\\.)")
 
     BiocVersion <-
-        base::as.character("3.14")
+        base::as.character("3.16")
 
     Genome <-
         base::as.character("GRCh38")

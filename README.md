@@ -250,22 +250,21 @@ The `dowload_expression_data` function is used to download expression
 data from Google Drive and will create a directory of `CSV` files at
 `~/expression-data`. The directory is used by the
 `write_expression_matrix` function, which reads in the `CSV` files and
-writes R matrix objects to the `~/aws-upload-data` directory. Then, the
+writes R matrix objects to the `~/abs-upload-data` directory. Then, the
 `write_metadata_csv_file` function is used to write a `CSV` file
 describing the R matrix objects for
 [ExperimentHub](https://bioconductor.org/packages/ExperimentHub/) to the
 `~/eh-csv-metadata` directory; it will be used by a Bioconductor core
 team member to insert records into the
 [ExperimentHub](https://bioconductor.org/packages/ExperimentHub/)
-database. The R matrix objects should be uploaded to Amazon S3, as
-follows, before the records are inserted into the
+database. The R matrix objects should be uploaded to Azure Blob Storage,
+as follows, before the records are inserted into the
 [ExperimentHub](https://bioconductor.org/packages/ExperimentHub/)
 database.
 
-``` sh
-aws s3 cp 2021-09-15 s3://annotation-contributor/tuberculosis/2021-09-15 --acl public-read --recursive
+``` r
+tuberculosis.pipeline:::upload_expression_data("~/abs-upload-data/2021-09-15/")
 ```
 
-The command above requires the correct credentials from Bioconductor and
-assumes the current working directory to be `~/aws-upload-data`; the
-data would also be different depending on the date the pipeline was run.
+The command above requires credentials from Bioconductor; the date would
+also be different depending on when the pipeline was run.

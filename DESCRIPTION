@@ -15,6 +15,7 @@ License: Artistic-2.0
 Depends:
     R (>= 4.1.0)
 Imports:
+    AzureStor,
     affy,
     dplyr,
     furrr,
@@ -33,6 +34,7 @@ Imports:
     tidyr,
     tidyselect,
     utils,
+    withr,
     xml2
 Suggests:
     httr,
